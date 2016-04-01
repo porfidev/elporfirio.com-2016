@@ -1,0 +1,14 @@
+/**
+ * Created by elporfirio on 31/03/16.
+ */
+var gulp        = require('gulp');
+var browserSync = require('browser-sync').create();
+
+// Static server
+gulp.task('browser-sync', function() {
+  browserSync.init({
+    server: {
+      baseDir: "./app"
+    }
+  });
+});
