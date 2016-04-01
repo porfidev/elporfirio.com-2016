@@ -1,0 +1,21 @@
+{
+  "name": "elporfirio.com",
+  "version": "1.0.0",
+  "description": "Aplicacion del sitio web version 2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/elporfirio/elporfirio.com.git"
+  },
+  "author": "elporfirio.com",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/elporfirio/elporfirio.com#readme",
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1"
+  }
+}
