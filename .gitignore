@@ -49,3 +49,7 @@ crashlytics-build.properties
 
 node_modules/
 bower_components/
+
+#directorios de aplicación
+.tmp/
+dist/

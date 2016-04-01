@@ -2,12 +2,17 @@
  * Created by elporfirio on 31/03/16.
  */
 var gulp        = require('gulp');
-var sass        = require('gulp-ruby-sass');
+var sass        = require('gulp-sass');
 var browserSync = require('browser-sync').create();
+var uglify      = require('gulp-uglify');
+var debug       = require('gulp-debug');
+var minify      = require('gulp-minify-css');
+var inject = require('gulp-inject');
+var clean = require('gulp-clean');
 
 
 var config = {
-  sassPath: './resources/sass',
+  sassPath: './app/resources/sass',
   bowerDir: './bower_components'
 };
 
@@ -21,28 +26,101 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('css', function() {
-  return gulp.src(config.sassPath + '/style.scss')
-    .pipe(sass({
-      style: 'compressed',
-      loadPath: [
-        //'./resources/sass',
-        config.bowerDir + '/bootstrap-sass/assets/stylesheets'
-        //config.bowerDir + '/fontawesome/scss'
-      ]
-    })).pipe(gulp.dest('./app/css'));
-      // .on("error", notify.onError(function (error) {
-      //   return "Error: " + error.message;
-      // })))
-
+  return gulp.src('./app/resources/sass/main.scss')
+      .pipe(debug({verbose: true}))
+      .pipe(sass({
+        includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets']
+      }))
+      .pipe(minify())
+      .pipe(gulp.dest('./app/resources/css'))
 });
 
+gulp.task('minimizarJS', function(){
+  return gulp.src('./app/resources/js/*.js')
+      .pipe(debug({verbose: true}))
+      .pipe(uglify())
+      .pipe(gulp.dest('./dist/scripts'))
+});
 
-gulp.task('sass', function () {
-  return sass({
-    loadPath: [
-      './bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss'
-    ]
-  })
-    .on('error', sass.logError)
-    .pipe(gulp.dest('result'));
+gulp.task('watch', function(){
+  gulp.watch(['./app/resources/sass/main.scss'], ['css']);
+  gulp.watch(['./app/resources/js/app.js'], ['minimizarJS']);
+});
+/* =========== */
+
+gulp.task('copylibs', function(){
+  return gulp.src([
+        './bower_components/jquery/dist/jquery.js',
+        './bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
+        './bower_components/angular/angular.js'
+      ])
+      .pipe(debug({verbose: true}))
+      //.pipe(uglify())
+      .pipe(gulp.dest('./.tmp/libs'))
+});
+
+gulp.task('copyjs', function(){
+  return gulp.src([
+    './app/resources/js/*.js'
+  ])
+      .pipe(debug({verbose: true}))
+      //.pipe(uglify())
+      .pipe(gulp.dest('./.tmp/js'))
+});
+
+gulp.task('copymodules', function(){
+  return gulp.src('./app/modules/**/*.js')
+      .pipe(debug({verbose: true}))
+      //.pipe(uglify())
+      .pipe(gulp.dest('./.tmp/js/modules/'))
+});
+
+gulp.task('copycss', function() {
+  return gulp.src('./app/resources/sass/main.scss')
+      .pipe(debug({verbose: true}))
+      .pipe(sass({
+        includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets']
+      }))
+      //.pipe(minify())
+      .pipe(gulp.dest('./.tmp/css'))
+});
+
+gulp.task('copyhtml', function() {
+  gulp.src(['./app/*.html', '!./app/index.html'])
+      // Perform minification tasks, etc here
+      .pipe(gulp.dest('./.tmp'));
+});
+
+gulp.task('index', ['copylibs','copyjs', 'copycss', 'copyhtml', 'copymodules'], function () {
+  // var target = gulp.src('app/index.html');
+  // // It's not necessary to read the files (will speed up things), we're only after their paths:
+  // var sources = gulp.src(['.tmp/**/*.js', '!.tmp/js/modules/**/*.js', '.tmp/**/*.css'], {read: false});
+  //
+  // return target.pipe(inject(sources, { name: 'archivos', relative: true, addRootSlash: false }))
+  //     .pipe(gulp.dest('.tmp'));
+
+  return gulp.src('./app/index.html')
+      .pipe(inject(gulp.src([
+        '.tmp/libs/jquery.js',
+        '.tmp/libs/**/*.js',
+        '.tmp/**/*.js', '!.tmp/js/modules/**/*.js', '.tmp/**/*.css'], {read: false}), {ignorePath: '.tmp', relative: false, addRootSlash: false}))
+      .pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('limpiar', function () {
+  return gulp.src('./.tmp')
+      .pipe(clean({force: true}));
+      //.pipe(gulp.dest('dist'));
+});
+
+gulp.task('serve',['index'], function(){
+  gulp.watch(['./app/resources/sass/*.scss'], ['copycss']);
+  gulp.watch(['./app/resources/js/**/*.js'], ['copyjs']);
+  gulp.watch(['./app/**/*.html'], ['copyhtml']);
+  browserSync.init({
+    startPath: '/',
+    server: {
+      baseDir: "./.tmp"
+    }
+  });
 });
