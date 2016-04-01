@@ -1,0 +1,24 @@
+{
+  "name": "elporfirio.com",
+  "description": "Aplicacion del sitio web version 2016",
+  "main": "index.js",
+  "authors": [
+    "elporfirio.com"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "https://elporfirio.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "angular": "^1.5.3",
+    "bootstrap-sass": "^3.3.6"
+  }
+}
