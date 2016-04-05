@@ -6,7 +6,7 @@ var sass        = require('gulp-sass');
 var browserSync = require('browser-sync').create();
 var uglify      = require('gulp-uglify');
 var debug       = require('gulp-debug');
-var minify      = require('gulp-minify-css');
+var cleancss      = require('gulp-clean-css');
 var inject = require('gulp-inject');
 var clean = require('gulp-clean');
 
@@ -31,7 +31,7 @@ gulp.task('css', function() {
       .pipe(sass({
         includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets']
       }))
-      .pipe(minify())
+      .pipe(cleancss())
       .pipe(gulp.dest('./app/resources/css'))
 });
 
@@ -81,7 +81,7 @@ gulp.task('copycss', function() {
       .pipe(sass({
         includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets']
       }))
-      //.pipe(minify())
+      //.pipe(cleancss())
       .pipe(gulp.dest('./.tmp/css'))
 });
 

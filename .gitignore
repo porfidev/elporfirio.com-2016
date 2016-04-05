@@ -53,3 +53,5 @@ bower_components/
 #directorios de aplicación
 .tmp/
 dist/
+
+.sass-cache/
