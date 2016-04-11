@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="elporfirioApp">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -8,9 +8,12 @@
 </head>
 <body>
 <div class="container">
+
+  <div ui-view></div>
+
   <h1>Hello World!  </h1>
   <span class="algo">Rosita</span>
-  <button class="btn btn-default"> Hola mundo sin que hacer</button>
+  <a href="" class="btn btn-default" ui-sref="hola"> Hola mundo sin que hacer</a>
 </div>
 
 <!-- libs:js -->

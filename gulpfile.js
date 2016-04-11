@@ -6,9 +6,9 @@ var sass        = require('gulp-sass');
 var browserSync = require('browser-sync').create();
 var uglify      = require('gulp-uglify');
 var debug       = require('gulp-debug');
-var cleancss      = require('gulp-clean-css');
-var inject = require('gulp-inject');
-var clean = require('gulp-clean');
+var cleancss    = require('gulp-clean-css');
+var inject      = require('gulp-inject');
+var clean       = require('gulp-clean');
 
 
 var config = {
@@ -52,7 +52,8 @@ gulp.task('copylibs', function(){
   return gulp.src([
         './bower_components/jquery/dist/jquery.js',
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
-        './bower_components/angular/angular.js'
+        './bower_components/angular/angular.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.js'
       ])
       .pipe(debug({verbose: true}))
       //.pipe(uglify())
@@ -102,6 +103,7 @@ gulp.task('index', ['copylibs','copyjs', 'copycss', 'copyhtml', 'copymodules'], 
   return gulp.src('./app/index.html')
       .pipe(inject(gulp.src([
         '.tmp/libs/jquery.js',
+        '.tmp/libs/angular.js',
         '.tmp/libs/**/*.js',
         '.tmp/**/*.js', '!.tmp/js/modules/**/*.js', '.tmp/**/*.css'], {read: false}), {ignorePath: '.tmp', relative: false, addRootSlash: false}))
       .pipe(gulp.dest('.tmp'));
