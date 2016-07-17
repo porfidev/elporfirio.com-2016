@@ -12,3 +12,9 @@ gulp.task('clean', function () {
         config.paths.devfolder
     ]);
 });
+
+gulp.task('clean:dist', function(){
+    return del([
+        config.paths.prodfolder
+    ]);
+});

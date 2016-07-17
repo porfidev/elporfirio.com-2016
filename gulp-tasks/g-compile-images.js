@@ -8,6 +8,11 @@ var gulp = require('gulp'),
 gulp.task('compile-images', function(){
     return gulp.src(config.paths.images.origins)
         .pipe(debug({verbose: true}))
-        //.pipe(uglify())
         .pipe(gulp.dest(config.paths.images.destiny));
+});
+
+gulp.task('compile-images:dist', function(){
+    return gulp.src(config.paths.images.origins)
+        .pipe(debug({verbose: true}))
+        .pipe(gulp.dest(config.paths.images.dist));
 });

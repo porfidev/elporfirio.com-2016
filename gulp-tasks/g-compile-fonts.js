@@ -8,6 +8,11 @@ var gulp = require('gulp'),
 gulp.task('compile-fonts', function(){
     return gulp.src(config.paths.fonts.origins)
         .pipe(debug({verbose: true}))
-        //.pipe(uglify())
         .pipe(gulp.dest(config.paths.fonts.destiny));
+});
+
+gulp.task('compile-fonts:dist', function(){
+    return gulp.src(config.paths.fonts.origins)
+        .pipe(debug({verbose: true}))
+        .pipe(gulp.dest(config.paths.fonts.dist));
 });
