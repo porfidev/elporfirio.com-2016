@@ -1,15 +1,21 @@
 @import "bootstrap";
 /*@import "bootstrap/theme";*/
 
+@import "colors";
+@import "fonts";
+@import "header";
+@import "contenido";
+
+
 body {
-  div {
-    color: white;
-    .algo {
-      color: palegreen;
-    }
-  }
+  width: 100%;
+  height:100%;
+
+
+  background-color: #8F2C49;
+
+  background-image: url('/img/bg-pattern.png');
+  background-repeat: repeat;
 }
 
-div.parentesco {
-  background-color: #00AA00;
-}
+

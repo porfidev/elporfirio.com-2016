@@ -1,0 +1,41 @@
+
+@keyframes animatedGirl {
+  from {
+    background-position: center -120px, 100px -100px;
+  }
+  to {
+    background-position: center -80px, -800px -200px;
+  }
+  //100% { background-position: center -180px}
+}
+
+header {
+  min-height: 500px;
+  min-width: 1024px;
+  overflow: hidden;
+  position: relative;
+
+
+  background-color: white;
+  background-image: url('/img/wink_small.png'), url('/img/clouds.jpg');
+  background-size: 100%, 100%;
+  background-position: center -1500px, center;
+  background-repeat: no-repeat, repeat-x;
+  background-attachment: local, cover;
+
+  animation-name: animatedGirl;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+
+  box-shadow: 0 8px 16px -8px #333;
+
+  h1 {
+    padding-top: 180px;
+    font-family: $monserrat;
+    font-size: 6em;
+    margin-top: 0;
+    letter-spacing: -0.03em;
+  }
+}

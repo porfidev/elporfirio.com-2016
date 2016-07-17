@@ -7,13 +7,10 @@
   <!-- endinject -->
 </head>
 <body>
-<div class="container">
+<div>
+  <header ng-include="'views/header.view.html'"></header>
 
-  <div ui-view></div>
-
-  <h1>Hello World!  </h1>
-  <span class="algo">Rosita</span>
-  <a href="" class="btn btn-default" ui-sref="hola"> Hola mundo sin que hacer</a>
+  <div class="contenido" ui-view></div>
 </div>
 
 <!-- libs:js -->
