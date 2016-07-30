@@ -12,4 +12,8 @@ angular.module('elporfirio.com')
                 url: '/inicio',
                 templateUrl: 'views/inicio.view.html'
             })
+            .state('mapa', {
+                url: '/mapa',
+                templateUrl: 'views/mapa.view.html'
+            })
     }]);
